@@ -23,7 +23,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building FreelanceHub project...'
+                echo 'Building FreelanceHub...'
                 bat 'echo Build completed successfully'
             }
         }
