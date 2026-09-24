@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'
-    }
-
     stages {
 
         stage('Checkout') {
@@ -14,16 +10,9 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo 'Installing dependencies...'
-                bat 'npm install'
-            }
-        }
-
         stage('Build') {
             steps {
-                echo 'Building FreelanceHub...'
+                echo 'Building FreelanceHub project...'
                 bat 'echo Build completed successfully'
             }
         }
