@@ -5,40 +5,47 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out source code...'
-                checkout scm
+                echo 'Checking out source code from GitHub...'
+
+                git branch: 'main',
+                    url: 'https://github.com/manasp27/my_project.git'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building FreelanceHub project...'
-                bat 'echo Build completed successfully'
+                echo 'Building the project...'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                bat 'echo Tests completed successfully'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying FreelanceHub...'
-                bat 'echo Deployment completed successfully'
+                echo 'Deploying the project...'
             }
         }
     }
 
     post {
         success {
-            echo 'FreelanceHub CI/CD pipeline completed successfully!'
+            echo '======================================'
+            echo '   PIPELINE COMPLETED SUCCESSFULLY'
+            echo '======================================'
         }
 
         failure {
-            echo 'Pipeline failed. Check the console output.'
+            echo '======================================'
+            echo '        PIPELINE FAILED'
+            echo '======================================'
+        }
+
+        always {
+            echo 'Jenkins pipeline execution finished.'
         }
     }
 }
