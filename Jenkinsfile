@@ -1,51 +1,41 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "C:\\Program Files\\nodejs;${env.PATH}"
+    }
+
     stages {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out source code from GitHub...'
-
-                git branch: 'main',
-                    url: 'https://github.com/manasp27/my_project.git'
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building the project...'
+                bat 'npm install'
             }
         }
 
-        stage('Test') {
+        stage('Verify Node.js') {
             steps {
-                echo 'Running tests...'
+                bat 'node --version'
+                bat 'npm --version'
             }
         }
 
-        stage('Deploy') {
+        stage('Verify Application') {
             steps {
-                echo 'Deploying the project...'
+                bat 'node --check server.js'
             }
         }
-    }
 
-    post {
-        success {
-            echo '======================================'
-            echo '   PIPELINE COMPLETED SUCCESSFULLY'
-            echo '======================================'
-        }
-
-        failure {
-            echo '======================================'
-            echo '        PIPELINE FAILED'
-            echo '======================================'
-        }
-
-        always {
-            echo 'Jenkins pipeline execution finished.'
+        stage('Deployment') {
+            steps {
+                echo 'FreelanceHub deployment stage completed successfully.'
+            }
         }
     }
 }
